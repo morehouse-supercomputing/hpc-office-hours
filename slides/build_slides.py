@@ -366,19 +366,64 @@ footer(s)
 # 11 · What's next
 s = prs.slides.add_slide(BLANK)
 bg(s, MAROON)
-text(s, Inches(0.7), Inches(0.55), Inches(11.9), Inches(0.9), "WHAT'S NEXT", size=34, color=WHITE, font=HEAD, bold=True)
-box(s, Inches(0.7), Inches(1.47), Inches(1.1), Inches(0.08), fill=GOLD)
-for i, (date, name) in enumerate([("OCT 14", "What the Data Says"), ("NOV 4", "Finding the Pain Point")]):
+text(s, Inches(0.7), Inches(0.45), Inches(11.9), Inches(0.8), "WHAT'S NEXT: REAL DATA FOR YOUR OPIL WORK", size=30, color=WHITE, font=HEAD, bold=True)
+box(s, Inches(0.7), Inches(1.25), Inches(1.1), Inches(0.08), fill=GOLD)
+text(s, Inches(0.7), Inches(1.5), Inches(11.9), Inches(0.6),
+     [[("The data: ", {"bold": True, "color": GOLD}),
+       ("the CFPB Consumer Complaint Database. About 10 million real complaints about money transfers, prepaid cards, and digital payments, too big for a laptop.", {})]],
+     size=17, color=WHITE)
+for i, (date, name, do, leave) in enumerate([
+        ("OCT 14", "What the Data Says",
+         "Count complaints by product, company, state, and year. Each team edits one cell for its own sector and state.",
+         "Three numbers for your Monetization Canvas (due Oct 23)."),
+        ("NOV 4", "Finding the Pain Point",
+         "Read the complaint narratives at scale and pull the theme closest to your team's business problem.",
+         "The pain point, with numbers, for your business model and your Dec 4 pitch.")]):
     x = Inches(0.7) + Inches(6.1) * i
-    box(s, x, Inches(2.0), Inches(5.83), Inches(2.2), fill=WHITE)
-    box(s, x, Inches(2.0), Inches(0.12), Inches(2.2), fill=GOLD)
-    text(s, x + Inches(0.45), Inches(2.3), Inches(5), Inches(0.6), date, size=30, color=MAROON, font=HEAD, bold=True)
-    text(s, x + Inches(0.45), Inches(3.05), Inches(5.2), Inches(0.9), name, size=24, color=BLACK)
-text(s, Inches(0.7), Inches(4.9), Inches(11.9), Inches(1.4), [
-    [("DOCUMENTATION   ", {"font": HEAD, "bold": True, "color": GOLD, "size": 16}), ("docs.tacc.utexas.edu", {})],
-    [("HELP   ", {"font": HEAD, "bold": True, "color": GOLD, "size": 16}), ("ashley.scruse@morehouse.edu", {})],
-], size=22, color=WHITE, spacing=1.5)
+    box(s, x, Inches(2.35), Inches(5.83), Inches(3.05), fill=WHITE)
+    box(s, x, Inches(2.35), Inches(0.12), Inches(3.05), fill=GOLD)
+    text(s, x + Inches(0.4), Inches(2.5), Inches(5.2), Inches(0.5),
+         [[(date + "   ", {"color": MAROON}), (name.upper(), {"color": BLACK})]], size=20, font=HEAD, bold=True)
+    text(s, x + Inches(0.4), Inches(3.1), Inches(5.2), Inches(1.2), do, size=15, color=INK2)
+    text(s, x + Inches(0.4), Inches(4.3), Inches(5.2), Inches(1.0),
+         [[("You leave with: ", {"bold": True, "color": MAROON}), (leave, {})]], size=15, color=BLACK)
+box(s, Inches(0.7), Inches(5.65), Inches(11.93), Inches(1.0), fill=WHITE)
+box(s, Inches(0.7), Inches(5.65), Inches(0.12), Inches(1.0), fill=GOLD)
+text(s, Inches(1.1), Inches(5.65), Inches(11.3), Inches(1.0),
+     [[("WHY IT MATTERS  ", {"font": HEAD, "bold": True, "color": MAROON, "size": 15}),
+       ("Swap \"we think people struggle with payments\" for \"this many people said so.\" The pain points you find this fall become the requirements for your open payments prototype in the spring.", {"size": 16})]],
+     color=BLACK, anchor=MSO_ANCHOR.MIDDLE)
 footer(s, dark=True)
+
+# 12 · Let's connect
+s = prs.slides.add_slide(BLANK)
+bg(s, WHITE)
+title(s, "Let's Connect")
+gap = Inches(0.3)
+w = int((Inches(11.93) - gap) / 2)
+for i, (head, rows) in enumerate([
+        ("DR. ASHLEY SCRUSE", [("LinkedIn", "linkedin.com/in/ashleyscruse"),
+                               ("Email", "ashley.scruse@morehouse.edu"),
+                               ("GitHub", "github.com/ashleyscruse")]),
+        ("STAY LOCKED IN", [("MSF LinkedIn", "[MSF LinkedIn URL]"),
+                            ("CBPC LinkedIn", "linkedin.com/company/morehousecbpc"),
+                            ("CBPC", "bpccenter.org"),
+                            ("MSF GitHub", "github.com/morehouse-supercomputing")])]):
+    x = Inches(0.7) + (w + gap) * i
+    box(s, x, Inches(1.9), w, Inches(4.4), fill=MAROON if i == 0 else LIGHT)
+    box(s, x, Inches(1.9), w, Inches(0.08), fill=GOLD)
+    fg = WHITE if i == 0 else MAROON
+    text(s, x + Inches(0.4), Inches(2.2), w - Inches(0.8), Inches(0.5), head, size=20, color=GOLD if i == 0 else MAROON, font=HEAD, bold=True)
+    for r, (label, val) in enumerate(rows):
+        y = Inches(2.95) + Inches(0.8) * r
+        text(s, x + Inches(0.4), y, w - Inches(0.8), Inches(0.3), label.upper(), size=12,
+             color=RGBColor(0xD8, 0xB8, 0xC2) if i == 0 else INK2, font=HEAD, bold=True)
+        text(s, x + Inches(0.4), y + Inches(0.3), w - Inches(0.8), Inches(0.4), val, size=18,
+             color=WHITE if i == 0 else BLACK)
+text(s, Inches(0.7), Inches(6.45), Inches(11.9), Inches(0.4),
+     [[("Guide from tonight: ", {"bold": True, "color": MAROON}), ("morehouse-supercomputing.github.io/hpc-office-hours", {})]],
+     size=16, color=BLACK)
+footer(s)
 
 prs.save(OUT)
 print(OUT)
