@@ -1,0 +1,1654 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HPC Office Hours · Getting Onto Vista</title>
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><style>
+  /* Morehouse College brand: Maroon #840028 (PMS 202C), Gold #C1A231 (PMS 7753),
+     Cool Gray #A7A8AA. Sharp corners, high contrast, institutional. */
+  :root {
+    --chip-ink:    #FFFFFF;
+    --ground:      #F3F0F1;
+    --surface:     #FFFFFF;
+    --surface-2:   #EAE3E5;
+    --line:        #C6BABE;
+    --line-soft:   #DDD4D7;
+    --ink:         #170A0E;
+    --ink-2:       #4C3F43;
+    --ink-3:       #776A6E;
+    --accent:      #840028;
+    --accent-ink:  #6E0022;
+    --accent-wash: #F4E5E9;
+    --gold:        #C1A231;
+    --gold-ink:    #745F13;
+    --gold-wash:   #F8F0DA;
+    --gray:        #A7A8AA;
+    --ok:          #2C6E49;
+    --ok-wash:     #E2EDE7;
+    --warn:        #745F13;
+    --warn-wash:   #F8F0DA;
+    --warn-rule:   #C1A231;
+    --stop:        #840028;
+    --stop-wash:   #F2DDE3;
+    --stop-rule:   #840028;
+    --code-bg:     #170A0E;
+    --code-ink:    #E9E1E3;
+    --code-line:   #3A2229;
+    --shadow:      0 1px 2px rgba(23,10,14,.06), 0 8px 24px -16px rgba(23,10,14,.30);
+    --shadow-lift: 0 2px 4px rgba(23,10,14,.07), 0 18px 44px -22px rgba(23,10,14,.45);
+
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: "Helvetica Neue", Helvetica, "Segoe UI", Roboto, Arial, sans-serif;
+
+    --measure: 68ch;
+    --rail: 232px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --chip-ink:    #170A0E;
+      --ground:      #120A0D;
+      --surface:     #1C1216;
+      --surface-2:   #27191E;
+      --line:        #3E2C33;
+      --line-soft:   #2F2026;
+      --ink:         #F1EAEB;
+      --ink-2:       #BDADB2;
+      --ink-3:       #8E7D83;
+      --accent:      #D4B443;
+      --accent-ink:  #E3C767;
+      --accent-wash: #2A2111;
+      --gold:        #D4B443;
+      --gold-ink:    #E3C767;
+      --gold-wash:   #2A2111;
+      --gray:        #A7A8AA;
+      --ok:          #6FCB94;
+      --ok-wash:     #16261D;
+      --warn:        #E3C767;
+      --warn-wash:   #2A2111;
+      --warn-rule:   #D4B443;
+      --stop:        #F0899F;
+      --stop-wash:   #33131C;
+      --stop-rule:   #C4304F;
+      --code-bg:     #0A0407;
+      --code-ink:    #E4DADD;
+      --code-line:   #3E2C33;
+      --shadow:      0 1px 2px rgba(0,0,0,.45), 0 10px 28px -18px rgba(0,0,0,.9);
+      --shadow-lift: 0 2px 6px rgba(0,0,0,.55), 0 20px 48px -24px rgba(0,0,0,1);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --chip-ink:    #170A0E;
+    --ground:      #120A0D;
+    --surface:     #1C1216;
+    --surface-2:   #27191E;
+    --line:        #3E2C33;
+    --line-soft:   #2F2026;
+    --ink:         #F1EAEB;
+    --ink-2:       #BDADB2;
+    --ink-3:       #8E7D83;
+    --accent:      #D4B443;
+    --accent-ink:  #E3C767;
+    --accent-wash: #2A2111;
+    --gold:        #D4B443;
+    --gold-ink:    #E3C767;
+    --gold-wash:   #2A2111;
+    --gray:        #A7A8AA;
+    --ok:          #6FCB94;
+    --ok-wash:     #16261D;
+    --warn:        #E3C767;
+    --warn-wash:   #2A2111;
+    --warn-rule:   #D4B443;
+    --stop:        #F0899F;
+    --stop-wash:   #33131C;
+    --stop-rule:   #C4304F;
+    --code-bg:     #0A0407;
+    --code-ink:    #E4DADD;
+    --code-line:   #3E2C33;
+    --shadow:      0 1px 2px rgba(0,0,0,.45), 0 10px 28px -18px rgba(0,0,0,.9);
+    --shadow-lift: 0 2px 6px rgba(0,0,0,.55), 0 20px 48px -24px rgba(0,0,0,1);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent-ink); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:hover { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  code, kbd, pre, .mono { font-family: var(--mono); font-variant-ligatures: none; }
+
+  kbd {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-bottom-width: 2px;
+    border-radius: 0;
+    padding: 1px 6px;
+    font-size: .8em;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  /* ---------- shell ---------- */
+
+  .shell {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+    display: grid;
+    grid-template-columns: var(--rail) minmax(0, 1fr);
+    gap: 56px;
+    align-items: start;
+  }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    grid-column: 1 / -1;
+    border-bottom: 3px solid var(--accent);
+    box-shadow: 0 3px 0 var(--gold);
+    padding: 44px 0 32px;
+    margin-bottom: 11px;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    align-items: center;
+  }
+  .eyebrow .dot { color: var(--line); }
+
+  h1 {
+    font-family: var(--mono);
+    font-size: clamp(30px, 5.2vw, 46px);
+    line-height: 1.05;
+    letter-spacing: -.03em;
+    font-weight: 600;
+    margin: 0 0 18px;
+    text-wrap: balance;
+  }
+  h1 .accent { color: var(--accent); }
+
+  .standfirst {
+    max-width: var(--measure);
+    font-size: 17.5px;
+    color: var(--ink-2);
+    margin: 0 0 26px;
+  }
+
+  .facts { display: flex; flex-wrap: wrap; gap: 10px; }
+  .fact {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: 0;
+    padding: 9px 13px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.35;
+    color: var(--ink-2);
+  }
+  .fact b {
+    display: block;
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+  .fact span { color: var(--ink); font-weight: 600; }
+
+  /* ---------- rail ---------- */
+
+  .rail {
+    position: sticky;
+    top: 28px;
+    align-self: start;
+    max-height: calc(100vh - 56px);
+    overflow-y: auto;
+    padding-right: 8px;
+  }
+  .rail-title {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .rail ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; }
+  .rail ol li { margin: 0; }
+  .rail a {
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 6px;
+    align-items: baseline;
+    padding: 6px 8px 6px 10px;
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--ink-2);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    border-radius: 0;
+  }
+  .rail a .n {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .rail a:hover { color: var(--ink); background: var(--surface); }
+  .rail a.is-active {
+    color: var(--accent-ink);
+    border-left-color: var(--accent);
+    background: var(--surface);
+    font-weight: 600;
+  }
+  .rail a.is-active .n { color: var(--accent); }
+
+  /* ---------- content ---------- */
+
+  main { min-width: 0; display: flex; flex-direction: column; gap: 52px; }
+  section { scroll-margin-top: 24px; }
+
+  .part {
+    border-top: 3px solid var(--accent);
+    box-shadow: 0 3px 0 var(--gold);
+    padding-top: 16px;
+    margin-bottom: -14px;
+  }
+  .part:first-child { border-top: 0; box-shadow: none; padding-top: 0; margin-top: -10px; }
+  .part-n {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin: 0 0 6px;
+  }
+  .part-t {
+    font-family: var(--mono);
+    font-size: clamp(22px, 3.4vw, 29px);
+    letter-spacing: -.03em;
+    font-weight: 600;
+    color: var(--ink);
+    text-transform: none;
+    margin: 0 0 8px;
+  }
+  .part-d { margin: 0; color: var(--ink-2); font-size: 15.5px; max-width: var(--measure); }
+
+  /* ---------- rail group headings ---------- */
+
+  .rail-part {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    padding: 14px 0 5px 12px;
+    margin-top: 4px;
+    border-top: 1px solid var(--line-soft);
+    line-height: 1.35;
+  }
+  .rail ol > li:first-child.rail-part { margin-top: 0; padding-top: 0; border-top: 0; }
+
+  h2 {
+    font-family: var(--mono);
+    font-size: 21px;
+    letter-spacing: -.02em;
+    font-weight: 600;
+    margin: 0 0 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    text-wrap: balance;
+  }
+  h2 .n {
+    font-size: 11px;
+    color: var(--chip-ink);
+    background: var(--accent);
+    border-bottom: 2px solid var(--gold);
+    padding: 3px 6px 2px;
+    letter-spacing: .08em;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    flex: none;
+    align-self: flex-start;
+    position: relative;
+    top: -1px;
+  }
+  .lede {
+    max-width: var(--measure);
+    color: var(--ink-2);
+    margin: 0 0 22px;
+    padding-left: 34px;
+  }
+  .body { padding-left: 34px; display: flex; flex-direction: column; gap: 18px; }
+  .body > p { max-width: var(--measure); margin: 0; }
+
+  h3 {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    margin: 10px 0 -4px;
+  }
+
+  /* ---------- entry point cards ---------- */
+
+  .ways {
+    padding-left: 34px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+    gap: 14px;
+  }
+  .way {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-top: 3px solid var(--accent);
+    border-radius: 0;
+    padding: 16px 16px 18px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .way-name { font-family: var(--mono); font-size: 15px; font-weight: 600; letter-spacing: -.01em; margin: 0; }
+  .way-where { font-family: var(--mono); font-size: 11.5px; color: var(--accent-ink); word-break: break-all; margin: -4px 0 0; }
+  .way p { margin: 0; font-size: 14px; color: var(--ink-2); }
+  .way .pick {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px dashed var(--line);
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+  .way .pick b {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  /* ---------- authenticator app chooser ---------- */
+
+  .apps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .app {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+  }
+  .app.yes  { border-color: var(--accent); box-shadow: inset 0 3px 0 var(--gold); }
+  .app.no   { border-style: dashed; background: transparent; }
+  .app.no .applogo { filter: grayscale(1); opacity: .5; }
+  .applogo {
+    width: 54px; height: 54px; display: block;
+    border: 1px solid var(--line-soft);
+    border-radius: 11px;
+    background: #FFFFFF;
+  }
+  .app h4 { margin: 0; font-size: 14.5px; font-weight: 600; letter-spacing: -.01em; line-height: 1.3; }
+  .app h4 span { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); font-weight: 400; margin-top: 3px; }
+  .app p { margin: 0; font-size: 13px; color: var(--ink-2); }
+  .app .verdict {
+    margin-top: auto;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 4px 8px;
+    align-self: flex-start;
+  }
+  .app .verdict.v-yes { background: var(--accent); color: var(--chip-ink); border-bottom: 2px solid var(--gold); }
+  .app .verdict.v-ok  { background: var(--surface-2); color: var(--ink-2); }
+  .app .verdict.v-no  { background: var(--stop-wash); color: var(--stop); border: 1px solid var(--stop-rule); }
+
+  @media (max-width: 620px) { .apps { grid-template-columns: minmax(0, 1fr); } }
+
+  /* ---------- request-access call to action ---------- */
+
+  .cta {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+    background: var(--accent);
+    color: var(--chip-ink);
+    border: 0;
+    border-bottom: 3px solid var(--gold);
+    padding: 14px 20px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    align-self: flex-start;
+    max-width: 100%;
+  }
+  .cta:hover { background: var(--ink); color: var(--chip-ink); border-bottom-color: var(--gold); }
+  .cta .arrow { font-family: var(--mono); font-size: 14px; }
+  .cta-note { font-size: 13.5px; color: var(--ink-3); margin: -8px 0 0; max-width: var(--measure); }
+
+  /* ---------- the account desk: deliberately not a card ---------- */
+
+  .desk-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 16px;
+    border: 1px dashed var(--line);
+    border-left: 3px solid var(--gray);
+    background: transparent;
+    padding: 13px 16px;
+  }
+  .desk-inner .not {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    flex: none;
+  }
+  .desk-inner p { margin: 0; font-size: 14px; color: var(--ink-2); flex: 1 1 300px; min-width: 0; }
+  .desk-inner p b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- OS app tiles: 2 x 2, each with a preview of the real window ---------- */
+
+  .osgrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .os {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: 0;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .os.pick-me { border-color: var(--accent); box-shadow: var(--shadow), inset 0 3px 0 var(--gold); }
+
+  .os-preview { border-bottom: 1px solid var(--line-soft); }
+  .os-preview .bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 9px;
+    font-size: 10px;
+    font-family: var(--sans);
+    line-height: 1.4;
+  }
+  .os-preview .bar .nm { flex: 1; text-align: center; font-family: var(--mono); font-size: 9.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .os-preview .dots { display: flex; gap: 4px; flex: none; }
+  .os-preview .dots i { width: 8px; height: 8px; border-radius: 50%; display: block; }
+  .os-preview pre {
+    margin: 0;
+    padding: 11px 12px 13px;
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.65;
+    overflow-x: auto;
+    min-height: 84px;
+  }
+
+  .pv-mac .bar  { background: linear-gradient(#E8E8E8, #D6D6D6); border-bottom: 1px solid #BDBDBD; color: #4A4A4A; }
+  .pv-mac pre   { background: #FFFFFF; color: #1A1A1A; }
+  .pv-git .bar  { background: #E4E4E4; border-bottom: 1px solid #BDBDBD; color: #3A3A3A; }
+  .pv-git pre   { background: #FFFFFF; color: #1A1A1A; }
+  .pv-git .u    { color: #14822A; font-weight: 700; }
+  .pv-git .m    { color: #9333AE; font-weight: 700; }
+  .pv-git .d    { color: #1F6FBF; font-weight: 700; }
+  .pv-ps  .bar  { background: #1F1F1F; border-bottom: 1px solid #333; color: #C8C8C8; }
+  .pv-ps  pre   { background: #012456; color: #E4ECF7; }
+  .pv-lnx .bar  { background: #3D3550; border-bottom: 1px solid #2A2438; color: #D6CFE4; }
+  .pv-lnx pre   { background: #241F31; color: #EDE9F2; }
+  .pv-lnx .u    { color: #8FE388; font-weight: 700; }
+  .os-preview .cur { display: inline-block; width: 6px; height: 12px; background: currentColor; vertical-align: -2px; opacity: .85; }
+
+  .os-in { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .os-head { display: flex; align-items: center; gap: 11px; }
+  .appicon { width: 38px; height: 38px; flex: none; border-radius: 8px; display: block; box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+  .os-head h4 { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -.01em; line-height: 1.25; }
+  .os-head .sub { display: block; font-family: var(--mono); font-size: 11px; color: var(--ink-3); font-weight: 400; letter-spacing: .02em; margin-top: 2px; }
+  .os .open { font-size: 13.5px; color: var(--ink-2); margin: 0; }
+  .os .open b { color: var(--ink); font-weight: 600; }
+  .os .flag { margin-top: auto; padding-top: 10px; border-top: 1px dashed var(--line); font-size: 13px; color: var(--ink-2); }
+  .os .flag b { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; display: block; margin-bottom: 3px; }
+  .os .flag.good b { color: var(--accent); }
+  .os .flag.warn-flag b { color: var(--warn); }
+
+  @media (max-width: 620px) {
+    .osgrid { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  /* ---------- faux terminal windows ---------- */
+
+  .window {
+    border-radius: 7px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-lift);
+    max-width: 100%;
+  }
+  .win-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    font-size: 11.5px;
+    font-family: var(--sans);
+  }
+  .win-bar .title { flex: 1; text-align: center; font-family: var(--mono); font-size: 11px; letter-spacing: .01em; }
+  .lights { display: flex; gap: 6px; }
+  .lights i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+  .lights .r { background: #FF5F57; }
+  .lights .y { background: #FEBC2E; }
+  .lights .g { background: #28C840; }
+
+  .window.mac .win-bar { background: linear-gradient(#E8E8E8, #D8D8D8); border-bottom: 1px solid #BFBFBF; color: #4A4A4A; }
+  .window.mac .win-body { background: #1A1A1A; color: #E8E8E8; }
+
+  .window.ps .win-bar { background: #1F1F1F; color: #C8C8C8; border-bottom: 1px solid #333; }
+  .window.ps .win-bar .tab {
+    background: #012456;
+    border: 1px solid #1B3E7A;
+    border-radius: 4px 4px 0 0;
+    padding: 3px 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #DCE6F5;
+  }
+  .window.ps .win-body { background: #012456; color: #E4ECF7; }
+
+  .win-body { margin: 0; padding: 14px 16px; overflow-x: auto; font-size: 12.5px; line-height: 1.7; font-family: var(--mono); }
+  .win-body .p1 { color: #D4B443; }
+  .win-body .p2 { color: #E8A0B2; }
+  .win-body .sys { color: #9AA6AB; }
+  .window.ps .win-body .sys { color: #93A8C7; }
+  .win-body .hl { color: #F2D06B; }
+  .win-body .err { color: #FF8A80; }
+  .win-body .you { color: #FFFFFF; }
+  .caret { display: inline-block; width: 8px; height: 15px; background: currentColor; vertical-align: -3px; animation: blink 1.15s steps(1) infinite; }
+  @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+  .wincap {
+    font-size: 13px;
+    color: var(--ink-3);
+    margin: 8px 0 0;
+    max-width: var(--measure);
+  }
+  .wincap b { color: var(--ink-2); font-weight: 600; }
+
+  /* ---------- screenshots ---------- */
+
+  figure.shot { margin: 0; max-width: 780px; }
+  figure.shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 0;
+    background: #FFF;
+    box-shadow: var(--shadow-lift);
+  }
+  figure.shot figcaption {
+    font-size: 13px;
+    color: var(--ink-3);
+    margin-top: 9px;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+  figure.shot figcaption .k {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--chip-ink);
+    background: var(--accent);
+    padding: 2px 7px;
+    font-weight: 700;
+    flex: none;
+  }
+
+  /* ---------- code ---------- */
+
+  .code { position: relative; background: var(--code-bg); border: 1px solid var(--code-line); border-radius: 0; max-width: 100%; }
+  .code pre { margin: 0; padding: 15px 66px 15px 16px; overflow-x: auto; color: var(--code-ink); font-size: 13px; line-height: 1.65; tab-size: 2; }
+  .code .cm { color: #9A8288; }
+  .code .fl { color: #D4B443; }
+  .code .st { color: #E8A0B2; }
+  .code .pr { color: #6E545C; user-select: none; }
+  .copy {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #B9A79C;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 0;
+    padding: 4px 8px;
+    cursor: pointer;
+  }
+  .copy:hover { color: #E6ECED; background: rgba(255,255,255,.13); }
+  .copy.done { color: #D4B443; border-color: rgba(212,180,67,.55); }
+
+  p code, li code, td code, th code, dd code, .os code, .wincap code {
+    background: var(--surface-2);
+    border: 1px solid var(--line-soft);
+    border-radius: 0;
+    padding: 1px 5px;
+    font-size: .875em;
+    white-space: nowrap;
+  }
+
+  /* ---------- tables ---------- */
+
+  .tw { overflow-x: auto; border: 1px solid var(--line-soft); border-radius: 0; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  thead th {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    background: var(--surface-2);
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.mono, th.mono { font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 0;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .tag.ok   { color: var(--ok);   background: var(--ok-wash);   }
+  .tag.warn { color: var(--warn); background: var(--warn-wash); }
+  .tag.stop { color: var(--stop); background: var(--stop-wash); }
+
+  /* ---------- callouts ---------- */
+
+  .note {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-wash);
+    border-radius: 0;
+    padding: 13px 16px;
+    max-width: var(--measure);
+    font-size: 14.5px;
+  }
+  .note.stop { border-left-color: var(--stop-rule); border-left-width: 5px; background: var(--stop-wash); }
+  .note.warn { border-left-color: var(--warn-rule); background: var(--warn-wash); }
+  .note p { margin: 0; }
+  .note p + p { margin-top: 8px; }
+  .note b.lbl {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .note .lbl { color: var(--accent-ink); }
+  .note.stop .lbl { color: var(--stop); }
+  .note.warn .lbl { color: var(--warn); }
+
+  /* ---------- lists ---------- */
+
+  ul.plain, ol.steps { max-width: var(--measure); margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 7px; }
+  ol.steps { padding-left: 22px; }
+  ul.plain li::marker { color: var(--accent); }
+  ol.steps li::marker { font-family: var(--mono); font-size: 13px; color: var(--ink-3); }
+
+  dl.qa { margin: 0; max-width: var(--measure); }
+  dl.qa dt { font-weight: 600; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line-soft); }
+  dl.qa dt:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+  dl.qa dd { margin: 5px 0 0; color: var(--ink-2); font-size: 14.5px; }
+
+  /* ---------- cheat sheet ---------- */
+
+  .cheat {
+    padding-left: 34px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    align-items: start;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-top: 3px solid var(--gold);
+    border-radius: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .card h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin: 0;
+    padding: 12px 16px 11px;
+    font-weight: 700;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .card dl { margin: 0; }
+  .card dt {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-ink);
+    padding: 11px 16px 0;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+  .card dd {
+    margin: 0;
+    padding: 1px 16px 11px;
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+  .card dd + dt { border-top: 1px solid var(--line-soft); }
+  .card dt .ph { color: var(--ink-3); font-weight: 400; font-style: normal; }
+
+  /* ---------- footer ---------- */
+
+  footer {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--line);
+    margin-top: 60px;
+    padding-top: 22px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    justify-content: space-between;
+  }
+
+  /* ---------- responsive ---------- */
+
+  @media (max-width: 860px) {
+    .shell { grid-template-columns: minmax(0, 1fr); gap: 34px; padding: 0 18px 72px; }
+    .rail { position: static; max-height: none; overflow: visible; border: 1px solid var(--line-soft); background: var(--surface); border-radius: 0; padding: 14px 16px; }
+    .rail ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 2px; }
+    .rail-part { grid-column: 1 / -1; padding-left: 0; }
+    .lede, .body, .ways, .cheat { padding-left: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .caret { opacity: 1; }
+  }
+  html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="masthead">
+<p class="eyebrow">
+<span>Morehouse Supercomputing Facility</span>
+<span class="dot">/</span>
+<span>HPC Office Hours</span>
+<span class="dot">/</span>
+<span>TACC Vista</span>
+</p>
+<h1>Getting onto <span class="accent">Vista</span></h1>
+<p class="standfirst">
+      One goal: get you onto the machine, from the terminal or from Tapis, and leave you on a
+      real compute node. Everything past that is a different day.
+    </p>
+<div class="facts">
+<div class="fact"><b>System</b><span>vista.tacc.utexas.edu</span></div>
+<div class="fact"><b>Allocation</b><span>TRA25001</span></div>
+<div class="fact"><b>CPU queue</b><span>gg · 144 cores/node</span></div>
+<div class="fact"><b>GPU queues</b><span>gh · gh-dev</span></div>
+<div class="fact"><b>Architecture</b><span>Arm (not x86)</span></div>
+</div>
+</header>
+<nav aria-label="Sections" class="rail">
+<p class="rail-title">On this page</p>
+<ol>
+<li class="rail-part">Part 1 · Get access</li>
+<li><a href="#account"><span class="n">01</span><span>Request access + MFA</span></a></li>
+<li class="rail-part">Part 2 · Get on the system</li>
+<li><a href="#ways"><span class="n">02</span><span>Two ways on</span></a></li>
+<li><a href="#app"><span class="n">03</span><span>Open your terminal</span></a></li>
+<li><a href="#login"><span class="n">04</span><span>What login looks like</span></a></li>
+<li><a href="#tapis"><span class="n">05</span><span>Morehouse Tapis</span></a></li>
+<li class="rail-part">Part 3 · Now that you are on</li>
+<li><a href="#nodes"><span class="n">06</span><span>Login vs compute</span></a></li>
+<li><a href="#files"><span class="n">07</span><span>Where files live</span></a></li>
+<li><a href="#idev"><span class="n">08</span><span>Get a compute node</span></a></li>
+<li class="rail-part">Part 4 · When you are stuck</li>
+<li><a href="#stuck"><span class="n">09</span><span>When it breaks</span></a></li>
+<li><a href="#cheat"><span class="n">10</span><span>Cheat sheet</span></a></li>
+<li><a href="#help"><span class="n">11</span><span>Getting help</span></a></li>
+</ol>
+</nav>
+<main>
+<div class="part">
+<p class="part-n">Part 1</p>
+<h3 class="part-t">Get access</h3>
+<p class="part-d">Before anything else, and the part that has to happen ahead of the session rather than during it.</p>
+</div>
+<section id="account">
+<h2><span class="n">01</span>Get access</h2>
+<p class="lede">Nothing else on this page works until this is done: request access, make the account
+        from the invitation email, then set up multi-factor. Having a TACC account and being on the
+        allocation are two different things, and people conflate them constantly.</p>
+<div class="body">
+<h3>Start with the request form</h3>
+<p>Everything begins here. Fill this out and I add you to the project on our end.</p>
+<a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSdxkIzSFhd06isO-uYSwph7Dj_BawzWFvoBMQAiUwqn0iUS4g/viewform">Request access to the MSF allocation <span class="arrow">→</span></a>
+<p class="cta-note">You only do this once. If you are not sure whether you already have, run
+          <code>/usr/local/etc/taccinfo</code> on Vista, or just ask me.</p>
+<h3>Then use the invitation link, not the sign-up page</h3>
+<p>Once the form is in, TACC emails you an invitation with the subject
+          <b>"TACC Project Invitation Action Required: Account Request"</b>. Open that email and click
+          through from there.</p>
+<div class="note stop">
+<p><b class="lbl">Do not register separately</b>
+            Going to the TACC site and making an account on your own produces an account with no project
+            attached, and then nothing you submit will run. The invitation link is what ties your new
+            account to the allocation. If you already made one that way, tell me and I will link it up.</p>
+</div>
+<p>On the registration form, use your institutional email, and pick a username you will still be
+          happy with in five years. It is permanent and it is what you type at every login.</p>
+<h3>Set up multi-factor before your first login</h3>
+<p>TACC requires MFA on every login, including SSH. Set it up first or your first connection
+          attempt will simply fail. Two routes to the same page:</p>
+<p><b>Option A.</b> Go to <a href="https://accounts.tacc.utexas.edu/">accounts.tacc.utexas.edu</a>
+          and click <b>Multi-factor Auth</b> in the left sidebar.</p>
+<figure class="shot">
+<img alt="TACC Accounts page with the Multi-factor Auth item highlighted in the left sidebar, showing an authenticator app already paired." src="assets/img/mfa-accounts.png"/>
+<figcaption><span class="k">Option A</span><span>The sidebar item you are looking for. Once paired, this page shows your authenticator app and an Unpair button.</span></figcaption>
+</figure>
+<p><b>Option B.</b> From <a href="https://portal.tacc.utexas.edu/">portal.tacc.utexas.edu</a>,
+          click <b>Manage Account</b> in the sidebar, then <b>Manage Multi-factor Authentication</b>.</p>
+<figure class="shot">
+<img alt="TACC User Portal account page showing Manage Account in the sidebar and the Manage Multi-factor Authentication button under Account Management." src="assets/img/mfa-portal.png"/>
+<figcaption><span class="k">Option B</span><span>Two clicks from the portal: Manage Account, then Manage Multi-factor Authentication.</span></figcaption>
+</figure>
+<p>On that page, pair <b>Okta Verify</b>. It is the only authenticator app we use.</p>
+<div class="apps">
+<div class="app yes">
+<img alt="Okta Verify app icon" class="applogo" src="assets/img/okta-verify.png"/>
+<h4>Okta Verify<span>Okta, Inc.</span></h4>
+<p>Pairs cleanly and keeps working. Install it on your phone: <a href="https://apps.apple.com/app/okta-verify/id490179405">iOS</a> ·
+              <a href="https://play.google.com/store/apps/details?id=com.okta.android.auth">Android</a></p>
+<span class="verdict v-yes">The only app we use</span>
+</div>
+</div>
+<div class="note stop"><p><b class="lbl">NEVER use SMS</b>Do not pair text-message codes. If you already paired SMS or another app and logins are failing, unpair it on the MFA page and pair Okta Verify instead.</p></div>
+<p>Once you are paired, test it: log out of the portal and back in. Do that before you try SSH, so that
+          if something is wrong you find out in a browser rather than at a password prompt.</p>
+<div class="note">
+<p><b class="lbl">Confirm you are actually on the allocation</b>
+            After your first login, run <code>/usr/local/etc/taccinfo</code> (or just <code>allocations</code>).
+            If <code>TRA25001</code> appears with hours remaining, you are set. An empty list means you have an
+            account but no project, which is the one thing I have to fix on my end.</p>
+</div>
+<div class="desk-inner" style="margin-top:4px">
+<span class="not">Manage your account</span>
+<p>After setup, <b>portal.tacc.utexas.edu</b> is what you come back to: check your project
+            membership, see how much allocation is left, or re-pair a lost authenticator. Nothing you do
+            there runs on Vista.</p>
+</div>
+</div>
+</section>
+<div class="part">
+<p class="part-n">Part 2</p>
+<h3 class="part-t">Get on the system</h3>
+<p class="part-d">Two doors onto the same machine. Pick whichever one gets you on today.</p>
+</div>
+<section id="ways">
+<h2><span class="n">02</span>Two ways on, and why you would pick each</h2>
+<p class="lede">
+        Vista has two front doors. They all reach the same machine and the same files. What differs is how
+        much you have to install, where you land, and how much control you get once you are there.
+      </p>
+<div class="ways">
+<article class="way">
+<p class="way-name">Terminal (SSH)</p>
+<p class="way-where">vista.tacc.utexas.edu</p>
+<p>A text connection from an app already on your computer. This is the real machine with nothing
+            in between.</p>
+<p class="pick"><b>The benefit</b>Everything works here. Nothing is hidden from you, and every
+            instruction you will ever read about HPC assumes it.</p>
+</article>
+<article class="way">
+<p class="way-name">Morehouse Tapis</p>
+<p class="way-where">morehouse.tapis.io</p>
+<p>Our own tenant, with a GPU Jupyter app already built and pointed at Vista.</p>
+<p class="pick"><b>The benefit</b>The settings are made for you, and the same interface can be
+            driven from code later when you want to automate.</p>
+</article>
+</div>
+<div class="body">
+<div class="tw">
+<table>
+<thead>
+<tr><th> </th><th>Terminal</th><th>Tapis</th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="mono">To install</td>
+<td>Nothing on Mac or Linux. On Windows, Git Bash.</td>
+<td><span class="tag ok">Nothing</span></td>
+</tr>
+<tr>
+<td class="mono">You land on</td>
+<td><span class="tag warn">A login node</span> Ask for a compute node yourself.</td>
+<td><span class="tag ok">A compute node</span></td>
+</tr>
+<tr>
+<td class="mono">You get</td>
+<td>A command prompt. All of it.</td>
+<td>Jupyter on a GPU node.</td>
+</tr>
+<tr>
+<td class="mono">Set-up cost</td>
+<td>Highest. It is also the one that keeps paying.</td>
+<td>One-time key check, then lowest.</td>
+</tr>
+<tr>
+<td class="mono">Best for</td>
+<td>Anything real, and everything you will read about later.</td>
+<td>Our GPU work, and automating later.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="note">
+<p><b class="lbl">You do not have to pick one forever</b>
+            Most people end up using both: Tapis for browsing files and notebooks, and the terminal
+            for everything else. The files are the same either way: upload something through Tapis and it is right there in the terminal. Try whichever one gets you on the machine today. You can learn the other
+            next time.</p>
+</div>
+</div>
+</section>
+<section id="app">
+<h2><span class="n">03</span>The terminal is an app you open</h2>
+<p class="lede">There is no website you go to for this part. The terminal is a program already sitting
+        on your computer, the same way Word or Chrome is. Find it, open it, and leave it open.</p>
+<div class="body">
+<div class="osgrid">
+<div class="os">
+<div class="os-preview pv-mac">
+<div class="bar"><span class="dots"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></span><span class="nm">yourname - -zsh - 80×24</span><span style="width:28px;flex:none"></span></div>
+<pre>Last login: Mon Aug 25 09:12:04
+
+yourname@MacBook-Pro ~ % <span class="cur"></span></pre>
+</div>
+<div class="os-in">
+<div class="os-head"><svg aria-label="macOS Terminal app icon" class="appicon" role="img" viewbox="0 0 64 64">
+<rect fill="#1A1A1A" height="64" rx="13" width="64"></rect>
+<rect fill="none" height="62" rx="12.5" stroke="#4A4A4A" stroke-width="1.5" width="62" x="1" y="1"></rect>
+<path d="M8 1.5h48a6.5 6.5 0 0 1 6.5 6.5v6h-61V8A6.5 6.5 0 0 1 8 1.5z" fill="#D9D9D9"></path>
+<circle cx="10.5" cy="8" fill="#8A8A8A" r="2.1"></circle>
+<circle cx="17.5" cy="8" fill="#8A8A8A" r="2.1"></circle>
+<circle cx="24.5" cy="8" fill="#8A8A8A" r="2.1"></circle>
+<path d="M14 26l10 8-10 8" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5"></path>
+<path d="M30 44h18" stroke="#FFFFFF" stroke-linecap="round" stroke-width="4.5"></path>
+</svg><h4>Terminal<span class="sub">macOS · built in</span></h4></div>
+<p class="open"><b>To open it:</b> press <kbd>Cmd</kbd> + <kbd>Space</kbd>, type <code>Terminal</code>,
+                press Enter. It also lives in <b>Applications → Utilities</b>.</p>
+<p class="flag good"><b>Ready to go</b>SSH is already installed. Nothing to set up.</p>
+</div>
+</div>
+<div class="os pick-me">
+<div class="os-preview pv-git">
+<div class="bar"><span class="nm" style="text-align:left">MINGW64:/c/Users/YourName</span><span style="opacity:.6;flex:none">– ☐ ×</span></div>
+<pre><span class="u">YourName@DESKTOP-4KJ21</span> <span class="m">MINGW64</span> <span class="d">~</span>
+$ <span class="cur"></span></pre>
+</div>
+<div class="os-in">
+<div class="os-head"><svg aria-label="Git Bash terminal icon" class="appicon" role="img" viewbox="0 0 64 64">
+<rect fill="#2B2B2B" height="64" rx="13" width="64"></rect>
+<rect fill="none" height="62" rx="12.5" stroke="#5C5C5C" stroke-width="1.5" width="62" x="1" y="1"></rect>
+<path d="M8 1.5h48a6.5 6.5 0 0 1 6.5 6.5v6h-61V8A6.5 6.5 0 0 1 8 1.5z" fill="#F05133"></path>
+<circle cx="10.5" cy="8" fill="#FFCFC4" r="2.1"></circle>
+<circle cx="17.5" cy="8" fill="#FFCFC4" r="2.1"></circle>
+<path d="M14 26l10 8-10 8" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5"></path>
+<path d="M30 44h18" stroke="#FFFFFF" stroke-linecap="round" stroke-width="4.5"></path>
+</svg><h4>Git Bash<span class="sub">Windows · recommended</span></h4></div>
+<p class="open"><b>To install:</b> get Git for Windows from
+                <a href="https://git-scm.com/download/win">git-scm.com/download/win</a> and accept the defaults.
+                Then press <kbd>Windows</kbd>, type <code>Git Bash</code>, and open it.</p>
+<p class="flag good"><b>Start here on Windows</b>It avoids the connection error in
+                <a href="#login">section 04</a>, and gives you the same commands everyone else is running.</p>
+</div>
+</div>
+<div class="os">
+<div class="os-preview pv-ps">
+<div class="bar"><span class="nm" style="text-align:left">▮ Windows PowerShell</span><span style="opacity:.6;flex:none">– ☐ ×</span></div>
+<pre>Windows PowerShell
+Copyright (C) Microsoft Corporation.
+
+PS C:\Users\YourName&gt; <span class="cur"></span></pre>
+</div>
+<div class="os-in">
+<div class="os-head"><svg aria-label="Windows PowerShell console icon" class="appicon" role="img" viewbox="0 0 64 64">
+<rect fill="#012456" height="64" rx="13" width="64"></rect>
+<rect fill="none" height="62" rx="12.5" stroke="#2C5A9E" stroke-width="1.5" width="62" x="1" y="1"></rect>
+<path d="M8 1.5h48a6.5 6.5 0 0 1 6.5 6.5v6h-61V8A6.5 6.5 0 0 1 8 1.5z" fill="#0A3D80"></path>
+<rect fill="#5B8FD6" height="5" rx="1.6" width="17" x="8" y="5.5"></rect>
+<path d="M14 26l10 8-10 8" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5"></path>
+<path d="M30 44h18" stroke="#FFFFFF" stroke-linecap="round" stroke-width="4.5"></path>
+</svg><h4>Windows Terminal<span class="sub">Windows · PowerShell</span></h4></div>
+<p class="open"><b>To open it:</b> press the <kbd>Windows</kbd> key, type
+                <code>Windows Terminal</code> on Windows 11 or <code>PowerShell</code> on Windows 10, and click it.</p>
+<p class="flag warn-flag"><b>May fail on TACC</b>Some builds hit
+                <a href="#login">Corrupted MAC on input</a>. If yours does, switch to Git Bash.</p>
+</div>
+</div>
+<div class="os">
+<div class="os-preview pv-lnx">
+<div class="bar"><span class="nm" style="text-align:left">yourname@ubuntu: ~</span><span style="opacity:.6;flex:none">– ☐ ×</span></div>
+<pre><span class="u">yourname@ubuntu</span>:~$ <span class="cur"></span></pre>
+</div>
+<div class="os-in">
+<div class="os-head"><svg aria-label="Linux terminal emulator icon" class="appicon" role="img" viewbox="0 0 64 64">
+<rect fill="#241F31" height="64" rx="13" width="64"></rect>
+<rect fill="none" height="62" rx="12.5" stroke="#5A5169" stroke-width="1.5" width="62" x="1" y="1"></rect>
+<path d="M8 1.5h48a6.5 6.5 0 0 1 6.5 6.5v6h-61V8A6.5 6.5 0 0 1 8 1.5z" fill="#3D3550"></path>
+<circle cx="55.5" cy="8" fill="#8A81A0" r="2.1"></circle>
+<path d="M14 26l10 8-10 8" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5"></path>
+<path d="M30 44h18" stroke="#FFFFFF" stroke-linecap="round" stroke-width="4.5"></path>
+</svg><h4>Terminal<span class="sub">Linux · built in</span></h4></div>
+<p class="open"><b>To open it:</b> usually <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd>, or find
+                GNOME Terminal or Konsole in the application menu.</p>
+<p class="flag good"><b>Ready to go</b>SSH ships with essentially every distribution.</p>
+</div>
+</div>
+</div>
+<p>Those are the default appearances. Colours and fonts change if you or your IT department have
+          themed the app; the prompt text is what identifies it.</p>
+<div class="note warn">
+<p><b class="lbl">Windows only: if <code>ssh</code> is not recognized</b>
+            If <code>ssh -V</code> answers <code>The term 'ssh' is not recognized</code>, the OpenSSH client is
+            switched off. Turn it on in <b>Settings → Apps → Optional Features → Add a feature</b>,
+            search <b>OpenSSH Client</b>, install, then close and reopen PowerShell.</p>
+<p>Or run PowerShell as Administrator and use
+            <code>Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0</code>.
+            On a locked-down work laptop where neither is allowed, use MobaXterm instead.</p>
+</div>
+<h3>Windows alternatives, if you want one</h3>
+<div class="tw">
+<table>
+<thead>
+<tr><th>Tool</th><th>Best for</th></tr>
+</thead>
+<tbody>
+<tr><td class="mono">Git Bash</td><td><b>Start here.</b> A real bash shell, the same <code>ssh</code> as macOS and Linux, and it is not affected by the Corrupted MAC error.</td></tr>
+<tr><td class="mono">Windows Terminal</td><td>Fine when it works. Some builds fail with Corrupted MAC on input.</td></tr>
+<tr><td class="mono">MobaXterm</td><td>New to the command line, or you want a drag-and-drop file browser in a side panel. Free from <a href="https://mobaxterm.mobatek.net/">mobaxterm.mobatek.net</a>.</td></tr>
+<tr><td class="mono">WSL</td><td>Already comfortable in Linux. Install Ubuntu from the Microsoft Store.</td></tr>
+<tr><td class="mono">PuTTY</td><td>Older or heavily restricted machines. Free from <a href="https://www.putty.org/">putty.org</a>.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Pick one and stay on it. Switching tools halfway through a workshop is how people lose an hour.</p>
+</div>
+</section>
+<section id="login">
+<h2><span class="n">04</span>What logging in actually looks like</h2>
+<p class="lede">The command is identical on all three systems. Only the window around it changes.
+        Type your username in place of the highlighted part.</p>
+<div class="body">
+<div class="window mac">
+<div class="win-bar">
+<div class="lights"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+<span class="title">yourname - ssh - 80×24</span>
+<div style="width:41px"></div>
+</div>
+<pre class="win-body"><span class="p1">yourname@MacBook-Pro ~ %</span> <span class="you">ssh <span class="hl">yourusername</span>@vista.tacc.utexas.edu</span>
+
+<span class="sys">The authenticity of host 'vista.tacc.utexas.edu' can't be established.
+Are you sure you want to continue connecting (yes/no/[fingerprint])?</span> <span class="you">yes</span>
+
+<span class="sys">Password:</span> <span class="you"></span><span class="caret"></span>
+<span class="sys">TACC Token Code:</span>
+
+<span class="p2">------------------------------------------------------------
+   Welcome to the Vista Supercomputer
+------------------------------------------------------------</span>
+<span class="p1">login1.vista(1)$</span> </pre>
+</div>
+<p class="wincap"><b>macOS and Linux.</b> The prompt on the last line ends in
+          <code>login1</code>, which tells you that you are on a login node, not a compute node.
+          See <a href="#nodes">section 06</a> for why that matters.</p>
+<div class="window ps">
+<div class="win-bar">
+<span class="tab">Windows PowerShell</span>
+<span class="title" style="opacity:.55"> </span>
+<span style="opacity:.6">– ☐ ×</span>
+</div>
+<pre class="win-body"><span class="p1">PS C:\Users\YourName&gt;</span> <span class="you">ssh -V</span>
+<span class="sys">OpenSSH_for_Windows_8.6p1, LibreSSL 3.4.3</span>
+
+<span class="p1">PS C:\Users\YourName&gt;</span> <span class="you">ssh <span class="hl">yourusername</span>@vista.tacc.utexas.edu</span>
+
+<span class="sys">Password:</span> <span class="you"></span><span class="caret"></span>
+<span class="sys">TACC Token Code:</span>
+
+<span class="p1">login1.vista(1)$</span> </pre>
+</div>
+<p class="wincap"><b>Windows.</b> Once you are connected, the prompt changes from
+          <code>PS C:\Users\YourName&gt;</code> to the TACC prompt. From that point on you are typing
+          Linux commands, not PowerShell commands, and every instruction below applies unchanged.</p>
+<div class="note stop">
+<p><b class="lbl">Nothing appears when you type your password</b>
+            No characters, no dots, no asterisks. The cursor does not move. This is deliberate, and it is the
+            single most common reason a new user thinks the terminal has frozen. Type it carefully and press Enter.
+            The same applies to the MFA token on the next line.</p>
+</div>
+<p>The host fingerprint question only appears on your very first connection from that computer.
+          Type <code>yes</code>, in full, and you will not be asked again.</p>
+<h3>Windows: "Corrupted MAC on input"</h3>
+<p>This one is common enough that it has its own heading. You answer <code>yes</code> to the
+          fingerprint question, and instead of a password prompt you get this:</p>
+<div class="window ps">
+<div class="win-bar">
+<span class="tab">Windows PowerShell</span>
+<span class="title" style="opacity:.55"> </span>
+<span style="opacity:.6">– ☐ ×</span>
+</div>
+<pre class="win-body"><span class="p1">PS C:\Users\YourName&gt;</span> <span class="you">ssh <span class="hl">yourusername</span>@vista.tacc.utexas.edu</span>
+<span class="sys">The authenticity of host 'vista.tacc.utexas.edu' can't be established.
+ED25519 key fingerprint is SHA256:6NlyjFyyGSDXrIeyKa1S6f01Y4T7CUfWfbqUGxn+Euw.
+Are you sure you want to continue connecting (yes/no/[fingerprint])?</span> <span class="you">yes</span>
+<span class="sys">Warning: Permanently added 'vista.tacc.utexas.edu' (ED25519) to the list of known hosts.</span>
+<span class="err">Corrupted MAC on input.
+ssh_dispatch_run_fatal: Connection to 64:ff9b::8172:3ec9 port 22: message authentication code incorrect</span>
+<span class="p1">PS C:\Users\YourName&gt;</span> </pre>
+</div>
+<div class="note stop">
+<p><b class="lbl">This is not your account, your password, or your typing</b>
+            It is a bug between certain Windows OpenSSH builds and the network path to TACC. Retrying will
+            not fix it, and neither will resetting your password. Trying a different TACC hostname will not
+            fix it either. Switch terminals instead.</p>
+</div>
+<h4 style="margin:0;font-size:15px">The fix: use Git Bash</h4>
+<ol class="steps">
+<li>Install Git for Windows from <a href="https://git-scm.com/download/win">git-scm.com/download/win</a>
+            and accept the defaults.</li>
+<li>Press <kbd>Windows</kbd>, type <code>Git Bash</code>, and open it.</li>
+<li>Run the same command as before:
+            <code>ssh your_username@vista.tacc.utexas.edu</code></li>
+</ol>
+<p>That is the whole fix. Everything else on this page works identically from Git Bash.</p>
+<h4 style="margin:0;font-size:15px">Or use PuTTY</h4>
+<ol class="steps">
+<li>From <a href="https://www.putty.org/">putty.org</a>, download the 64-bit MSI installer and run it
+            with the defaults.</li>
+<li>Open PuTTY. In <b>Host Name</b> enter <code>vista.tacc.utexas.edu</code>. Leave <b>Port</b> at
+            <code>22</code> and <b>Connection type</b> on <b>SSH</b>.</li>
+<li>Click <b>Open</b>. A PuTTY Security Alert about the host key appears the first time. Click
+            <b>Accept</b>.</li>
+<li>At <code>login as:</code> type your TACC username, then your password and MFA code. The same
+            silent-input rule applies.</li>
+</ol>
+<h3>Other TACC systems</h3>
+<p>Our allocation is on Vista. Same command, different hostname, if you separately have time
+          on another TACC system, but everything on this page is written for Vista.</p>
+<div class="tw">
+<table>
+<thead><tr><th>System</th><th>Hostname</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Vista</td><td class="mono">vista.tacc.utexas.edu</td><td>Arm, Grace-Hopper GPUs. <b>Our allocation, TRA25001.</b></td></tr>
+<tr><td>Frontera</td><td class="mono">frontera.tacc.utexas.edu</td><td>x86. <a href="https://docs.tacc.utexas.edu/hpc/frontera/">Specs</a></td></tr>
+<tr><td>Stampede3</td><td class="mono">stampede3.tacc.utexas.edu</td><td>x86. <a href="https://docs.tacc.utexas.edu/hpc/stampede3/">Specs</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="tapis">
+<h2><span class="n">05</span>Morehouse Tapis</h2>
+<p class="lede">We run our own Tapis tenant at <a href="https://morehouse.tapis.io">morehouse.tapis.io</a>.
+        It is two things at once: a web interface with our GPU Jupyter app already built, and an API underneath
+        for driving Vista from code.</p>
+<div class="body">
+<h3>Launching Jupyter on a GPU node</h3>
+<p>In the Tapis UI, find the <code>jupyter-hpc-native</code> app and submit it with the JSON form.
+          The whole request is one line, because the app already knows the system, the queue, and the setup script.</p>
+<div class="code">
+<button class="copy" type="button">Copy</button>
+<pre>{ <span class="st">"name"</span>: <span class="st">"jupyter"</span>, <span class="st">"appId"</span>: <span class="st">"jupyter-hpc-native"</span>, <span class="st">"appVersion"</span>: <span class="st">"vista"</span> }</pre>
+</div>
+<p>Add <code>"maxMinutes": 60</code> to cap the session at an hour. The default is 120, and a shorter
+          session spends less of the allocation.</p>
+<div class="note stop">
+<p><b class="lbl">Do this once, before your first submission</b>
+            The app copies a setup script from a storage system called <code>cloud.data</code>. Without credentials
+            there, your job hangs on <code>STAGING_INPUTS</code> forever and never fails visibly.</p>
+<p>To check: open <b>Files</b> in the Tapis UI, select <b>cloud.data</b>, browse to
+            <code>/corral/tacc/aci/CEP/applications/v3/interactive-template/tap</code>, and confirm you can see
+            <code>tap-ilogin.sh</code>. If you get <code>SSH_POOL_MISSING_CREDENTIALS</code>, your TMS keys need
+            verifying first.</p>
+</div>
+<figure class="shot">
+<img alt="The Morehouse Tapis interface at morehouse.tapis.io. A left sidebar lists Dashboard, Systems, Files, Apps, Jobs, Workflows, Pods, ML Hub, AI Hub, Actors, Authenticator and Security. Files is selected, showing the available systems frontera, ls6, stampede-3, vista and cloud.data, with the contents of a vista work directory listed on the right." src="assets/img/tapis-ui.png"/>
+<figcaption><span class="k">Tapis</span><span>The systems column is where you switch to <b>cloud.data</b> for the check above. <b>Apps</b> and <b>Jobs</b> in the sidebar are where you submit and then watch the run.</span></figcaption>
+</figure>
+<h3>Then watch it move</h3>
+<div class="code">
+<button class="copy" type="button">Copy</button>
+<pre>STAGING_INPUTS  →  SUBMITTING_JOB  →  QUEUED  →  RUNNING</pre>
+</div>
+<p>Once the status reads <b>RUNNING</b>, give it another minute or two for the node to boot the Jupyter
+          server, then open the job's <code>tapisjob.out</code> file. Near the top is the line you need:</p>
+<div class="code">
+<pre><span class="cm">TACC: JUPYTER_URL is https://vista.tacc.utexas.edu:60707/?token=cb137c89...</span></pre>
+</div>
+<p>Copy that whole URL, token included, into your browser. That is JupyterLab on a Vista GPU node,
+          serving from your <code>$WORK</code> directory. Confirm the GPU with <code>!nvidia-smi</code> in a cell.</p>
+<div class="note">
+<p><b class="lbl">Two harmless things that look like errors</b>
+            Clicking into the output view before the job runs gives "path not found", because the output folder
+            does not exist yet. And the log's other URLs, the ones ending in <code>:8888</code> or
+            <code>127.0.0.1</code>, are the node's internal addresses; they will not work from your laptop. Only the
+            <code>JUPYTER_URL</code> line works.</p>
+</div>
+<h3>The API underneath</h3>
+<p>The same tenant exposes REST services for Systems, Files, Apps, and Jobs. Reach for this once you find
+          yourself submitting the same job shape repeatedly from a script, a web app, or a notebook that is not on
+          the cluster.</p>
+<div class="code">
+<button class="copy" type="button">Copy</button>
+<pre><span class="pr">$ </span>pip install tapipy
+
+<span class="cm"># then, in Python</span>
+from tapipy.tapis import Tapis
+
+t = Tapis(base_url=<span class="st">"https://morehouse.tapis.io"</span>,
+          username=<span class="st">"yourusername"</span>,
+          password=os.environ[<span class="st">"TACC_PASSWORD"</span>])
+t.get_tokens()
+
+t.systems.getSystems()          <span class="cm"># what can I reach?</span>
+t.jobs.getJobList()             <span class="cm"># what have I run?</span></pre>
+</div>
+<p>Never paste your password into a notebook you will commit. Read it from an environment variable or a
+          <code>.env</code> file that is in your <code>.gitignore</code>. Full reference at
+          <a href="https://tapis.readthedocs.io">tapis.readthedocs.io</a>, and bring the use case to office hours
+          first, because plenty of what people want Tapis for is simpler as a Slurm dependency chain.</p>
+</div>
+</section>
+<div class="part">
+<p class="part-n">Part 3</p>
+<h3 class="part-t">Now that you are on</h3>
+<p class="part-d">Just enough to look around safely and get yourself a real compute node.</p>
+</div>
+<section id="nodes">
+<h2><span class="n">06</span>Login nodes versus compute nodes</h2>
+<p class="lede">You are logged in. Before you run anything, understand this one thing, because it
+        is the source of most office-hours questions and every angry email from TACC.</p>
+<div class="body">
+<p>Vista is not one computer, it is two kinds of computer. A <b>login node</b> is the shared front
+          desk: you land on one when you connect, and there are only a handful of them for thousands of users.
+          The <b>compute nodes</b> are the actual supercomputer, hundreds of them, and you never touch one
+          directly. You ask the scheduler, Slurm, for one.</p>
+<p>Which door you use decides where you start. The SSH login you just did puts you on a login node,
+          so you have to ask for a compute node yourself. <a href="#tapis">Tapis</a> puts you on a compute node from the outset, which is exactly why it is
+          the safe way to hand someone a notebook on day one.</p>
+<div class="tw">
+<table>
+<thead><tr><th>On a login node</th><th>On a compute node</th></tr></thead>
+<tbody>
+<tr>
+<td>Edit files, move around, submit jobs, check the queue, short compiles, small file transfers.</td>
+<td>Training runs, simulations, long compiles, anything that eats memory or runs for minutes.</td>
+</tr>
+<tr>
+<td class="mono">ls · cd · nano · idev · squeue</td>
+<td class="mono">an idev session · a Tapis session</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="note stop">
+<p><b class="lbl">What gets your account suspended</b>
+            Running <code>python train.py</code> straight after logging in. It executes on the login node, slows the
+            machine for everyone, and TACC's monitoring will kill it and email you.</p>
+<p>The fix is one line: ask for a compute node first with
+            <a href="#idev"><code>idev</code></a>, and run your work there.</p>
+</div>
+<p>To tell where you are, read your prompt. Login nodes are named like <code>login1</code>;
+          compute nodes have a number like <code>c123-456</code>.</p>
+</div>
+</section>
+<section id="files">
+<h2><span class="n">07</span>Where your files live</h2>
+<p class="lede">However you got on, you are looking at the same three filesystems, and they have
+        genuinely different rules. Putting work in the wrong one is the most expensive mistake on this page,
+        because one of them deletes things.</p>
+<div class="body">
+<div class="tw">
+<table>
+<thead>
+<tr><th>Directory</th><th class="num">Size</th><th>Backed up</th><th>Purged</th><th>Put this here</th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="mono">$HOME</td><td class="num">23 GB</td>
+<td><span class="tag ok">Yes</span></td><td><span class="tag ok">Never</span></td>
+<td>Code, scripts, small configs, final results worth keeping.</td>
+</tr>
+<tr>
+<td class="mono">$WORK</td><td class="num">1 TB</td>
+<td><span class="tag warn">No</span></td><td><span class="tag ok">Never</span></td>
+<td>Datasets, environments, the project you are actively working on.</td>
+</tr>
+<tr>
+<td class="mono">$SCRATCH</td><td class="num">Unlimited</td>
+<td><span class="tag warn">No</span></td><td><span class="tag stop">10 days</span></td>
+<td>Job output, checkpoints, intermediates you can regenerate.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="note stop">
+<p><b class="lbl">Read this twice</b>
+<code>$SCRATCH</code> is purged. Files not touched in ten days are deleted, and they are not recoverable.
+            It is the right place to write job output and the wrong place to leave it. <code>$WORK</code> is not
+            backed up either, so keep your own copy of anything you cannot regenerate.</p>
+</div>
+<p>Use the variables, not typed-out paths. <code>cd $WORK</code> works on every TACC machine; a hard-coded
+          path breaks the moment you move systems.</p>
+<div class="code">
+<button class="copy" type="button">Copy</button>
+<pre><span class="pr">$ </span>cd $WORK &amp;&amp; mkdir <span class="fl">-p</span> myproject/{data,scripts,logs,results}
+<span class="pr">$ </span>du <span class="fl">-sh</span> $HOME          <span class="cm"># am I near the 23 GB quota?</span>
+<span class="pr">$ </span>/usr/local/etc/taccinfo   <span class="cm"># allocation + usage</span></pre>
+</div>
+</div>
+</section>
+<section id="idev">
+<h2><span class="n">08</span>Get yourself a compute node</h2>
+<p class="lede">This is the only job you need today. <code>idev</code> asks the scheduler for a compute
+        node and drops you into a shell on it for a fixed window. Everything you type after that is running on
+        the supercomputer rather than on the front desk.</p>
+<div class="body">
+<div class="code">
+<button class="copy" type="button">Copy</button>
+<pre><span class="cm"># 30 minutes on one CPU node</span>
+<span class="pr">$ </span>idev <span class="fl">-p</span> gg <span class="fl">-N</span> 1 <span class="fl">-t</span> 00:30:00
+
+<span class="cm"># one GPU node, dev queue: shorter limit, starts fastest</span>
+<span class="pr">$ </span>idev <span class="fl">-p</span> gh-dev <span class="fl">-N</span> 1 <span class="fl">-t</span> 00:30:00 <span class="fl">-A</span> TRA25001</pre>
+</div>
+<div class="tw">
+<table>
+<thead><tr><th>Queue</th><th>Hardware</th><th>Reach for it when</th></tr></thead>
+<tbody>
+<tr><td class="mono">gg</td><td>Grace-Grace, CPU only, 144 cores per node</td><td>No GPU needed. Parallel CPU work, data processing.</td></tr>
+<tr><td class="mono">gh</td><td>Grace-Hopper, GPU</td><td>Real training and inference runs.</td></tr>
+<tr><td class="mono">gh-dev</td><td>Grace-Hopper, GPU, short limit</td><td>Debugging. Shortest wait to get a node.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Ask for the time you actually need. A 30-minute request often starts immediately when a
+          4-hour request would sit in the queue, and the session ends the moment your clock runs out
+          whether or not your work finished. Type <code>exit</code> to give the node back early.</p>
+<h3>Loading software once you are there</h3>
+<p>Nothing is installed by default. Software is loaded on demand, so incompatible versions never
+          collide and you can pin exactly what you need.</p>
+<div class="code">
+<button class="copy" type="button">Copy</button>
+<pre><span class="pr">$ </span>module spider python   <span class="cm"># what versions exist?</span>
+<span class="pr">$ </span>module load python3    <span class="cm"># load one</span>
+<span class="pr">$ </span>module list            <span class="cm"># what do I have loaded?</span>
+<span class="pr">$ </span>module reset           <span class="cm"># escape hatch, back to defaults</span></pre>
+</div>
+<div class="note warn">
+<p><b class="lbl">Vista is Arm, not x86</b>
+            Grace-Hopper is an Arm architecture. A pip wheel or conda build compiled for x86 will install
+            cleanly and then fail at import. If a package misbehaves, check you have the <code>aarch64</code>
+            build before debugging anything else.</p>
+</div>
+<div class="note">
+<p><b class="lbl">That is as far as today goes</b>
+            Running work that outlives a session, queueing many runs at once, and moving large datasets are all
+            real things, and none of them are today's problem. Come to office hours when you get there.</p>
+</div>
+</div>
+</section>
+<div class="part">
+<p class="part-n">Part 4</p>
+<h3 class="part-t">When you are stuck</h3>
+<p class="part-d">Come back to these. They are the reason this page exists.</p>
+</div>
+<section id="stuck">
+<h2><span class="n">09</span>When it breaks</h2>
+<p class="lede">The things that account for most of what walks into office hours.</p>
+<div class="body">
+<dl class="qa">
+<dt>Nothing appears when I type my password.</dt>
+<dd>Working as designed. The terminal never echoes a password or an MFA token. Type it and press Enter.</dd>
+<dt>Corrupted MAC on input / message authentication code incorrect.</dt>
+<dd>A Windows OpenSSH bug, not your account. Use Git Bash or PuTTY instead of PowerShell.
+            Walkthrough in <a href="#login">section 04</a>.</dd>
+<dt><code>ssh</code> is not recognized as a command.</dt>
+<dd>Windows, with the OpenSSH client switched off. See <a href="#app">section 03</a>.</dd>
+<dt>Permission denied, or it asks for the password over and over.</dt>
+<dd>Usually the MFA code, not the password. Codes expire in 30 seconds, so wait for a fresh one. Three
+            failures in a row can trigger a temporary lockout; wait a few minutes before retrying.</dd>
+<dt>I made an account but nothing will run.</dt>
+<dd>You probably registered directly instead of through the invitation email, so the account has no project
+            attached. Run <code>/usr/local/etc/taccinfo</code>. If the project list is empty, send me your username,
+            and check you actually submitted the <a href="#account">request form in section 01</a>.</dd>
+<dt>"Invalid account" or "Invalid partition" when I ask for a node.</dt>
+<dd>You are not on the allocation, or the <code>-A</code> line is wrong. Check with
+            <code>/usr/local/etc/taccinfo</code> that <code>TRA25001</code> is listed.</dd>
+<dt>My job has been Pending forever.</dt>
+<dd>The queue is busy. Ask for less: fewer nodes, less wall time, or <code>gh-dev</code> instead of
+            <code>gh</code>. A 30-minute request frequently starts while a 12-hour request waits.</dd>
+<dt>Command not found, for something I know is installed.</dt>
+<dd>You have not loaded its module in this session. Run <code>module spider &lt;name&gt;</code> to find it,
+            then <code>module load</code> it. A fresh <code>idev</code> session starts clean every time.</dd>
+<dt>Illegal instruction, or a wheel installs then fails at import.</dt>
+<dd>An x86 build on an Arm machine. Get the <code>aarch64</code> version of the package.</dd>
+<dt>Disk quota exceeded.</dt>
+<dd><code>$HOME</code> is only 23 GB and virtual environments fill it fast. Run <code>du -sh $HOME/*</code>
+            to find the culprit, then move the project to <code>$WORK</code>.</dd>
+<dt>My files are gone.</dt>
+<dd>Were they in <code>$SCRATCH</code>? It purges after 10 days and there is no recovery. Anything you cannot
+            regenerate belongs in <code>$WORK</code> or <code>$HOME</code>.</dd>
+<dt>My job got killed and TACC emailed me.</dt>
+<dd>You ran something heavy on a login node. Not a big deal the first time. Use <code>idev</code> or a batch
+            script and it will not happen again.</dd>
+<dt>My Tapis job is stuck on STAGING_INPUTS.</dt>
+<dd>The TMS key check in <a href="#tapis">section 05</a> was skipped. Verify you can see
+            <code>tap-ilogin.sh</code> on <code>cloud.data</code>, then resubmit.</dd>
+<dt>Jupyter cannot see my data.</dt>
+<dd>You are in <code>$HOME</code>. Open a terminal in JupyterLab and <code>cd $WORK</code>.</dd>
+<dt>My notebook kernel keeps dying.</dt>
+<dd>Out of memory, usually from loading a whole dataset into a dataframe. Restart the session with more
+            resources, or read the data in chunks.</dd>
+</dl>
+</div>
+</section>
+<section id="cheat">
+<h2><span class="n">10</span>Cheat sheet</h2>
+<p class="lede">The commands worth keeping open in a second window. Everything here works the same
+        in a terminal and in a Tapis session.</p>
+<div class="cheat">
+<div class="card">
+<h4>Where am I, what have I got</h4>
+<dl>
+<dt>pwd</dt><dd>Print the directory you are currently in.</dd>
+<dt>ls -la</dt><dd>List everything here, including hidden files, with sizes and dates.</dd>
+<dt>cd $WORK</dt><dd>Go to the project filesystem. Most of your work lives here.</dd>
+<dt>du -sh $HOME</dt><dd>How much of the 23 GB home quota you have used.</dd>
+<dt>allocations</dt><dd>Your projects and how much time is left on each.</dd>
+<dt>hostname</dt><dd>Which node you are on. <code>login1</code> means you are on a login node.</dd>
+</dl>
+</div>
+<div class="card">
+<h4>Moving around and handling files</h4>
+<dl>
+<dt>mkdir -p <span class="ph">a/b/c</span></dt><dd>Create a folder, and any parent folders it needs.</dd>
+<dt>cp -r <span class="ph">src dst</span></dt><dd>Copy a folder and everything inside it.</dd>
+<dt>mv <span class="ph">old new</span></dt><dd>Move a file, or rename it. Same command either way.</dd>
+<dt>less <span class="ph">file</span></dt><dd>Scroll through a file. Press <code>q</code> to quit.</dd>
+<dt>tail -f <span class="ph">logfile</span></dt><dd>Watch a file as it grows. <code>Ctrl-C</code> stops watching.</dd>
+<dt>wget <span class="ph">https://...</span></dt><dd>Download data straight onto Vista, no laptop involved.</dd>
+</dl>
+</div>
+<div class="card">
+<h4>Getting a compute node</h4>
+<dl>
+<dt>idev -p gg -N 1 -t 00:30:00</dt><dd>A CPU node for 30 minutes.</dd>
+<dt>idev -p gh-dev -N 1 -t 00:30:00</dt><dd>A GPU node. Shortest wait of the three queues.</dd>
+<dt>hostname</dt><dd>Confirm it worked. <code>c123-456</code> is a compute node, <code>login1</code> is not.</dd>
+<dt>exit</dt><dd>End the session and give the node back.</dd>
+<dt>squeue -u $USER</dt><dd>Anything of yours still queued or running.</dd>
+</dl>
+</div>
+<div class="card">
+<h4>Loading software</h4>
+<dl>
+<dt>module spider <span class="ph">python</span></dt><dd>Find every available version of something.</dd>
+<dt>module load <span class="ph">python3</span></dt><dd>Load it into this session.</dd>
+<dt>module list</dt><dd>What is loaded right now.</dd>
+<dt>module reset</dt><dd>Back to the system default when things get tangled.</dd>
+</dl>
+</div>
+<div class="card">
+<h4>Editing a file on Vista</h4>
+<dl>
+<dt>nano <span class="ph">notes.txt</span></dt><dd>The simplest editor. Start here.</dd>
+<dt>Ctrl-O <span class="ph">then</span> Ctrl-X</dt><dd>Save, then exit nano.</dd>
+<dt>vim <span class="ph">notes.txt</span></dt><dd>The other one. You will meet it eventually.</dd>
+<dt>i <span class="ph">/</span> Esc <span class="ph">/</span> :wq</dt><dd>In vim: start typing, stop typing, then save and quit.</dd>
+</dl>
+</div>
+</div>
+</section>
+<section id="help">
+<h2><span class="n">11</span>Getting help</h2>
+<div class="body">
+<div class="note">
+<p><b class="lbl">Bring this to office hours and we start at the answer</b></p>
+<ul class="plain" style="margin-top:8px">
+<li>Which door you were using: terminal or Tapis.</li>
+<li>The <b>exact command</b> you ran, copied, not retyped from memory.</li>
+<li>The <b>exact error</b>, copied the same way. A screenshot is fine.</li>
+<li>Your TACC username, and the output of <code>/usr/local/etc/taccinfo</code> if you got that far.</li>
+</ul>
+</div>
+<div class="tw">
+<table>
+<thead><tr><th>Where</th><th>For</th></tr></thead>
+<tbody>
+<tr><td><a href="https://morehouse-supercomputing.github.io/mscf-getting-started/">MSF Getting Started</a></td><td>The full onboarding guide, with the OS tabs and troubleshooting page.</td></tr>
+<tr><td><a href="https://morehouse-supercomputing.github.io/jupyter-on-tapis/">Jupyter via Tapis</a></td><td>The long-form version of section 05.</td></tr>
+<tr><td><a href="https://docs.tacc.utexas.edu/hpc/vista/">docs.tacc.utexas.edu/hpc/vista</a></td><td>The Vista user guide. Authoritative on hardware, queues, and limits.</td></tr>
+<tr><td><a href="https://portal.tacc.utexas.edu">portal.tacc.utexas.edu</a></td><td>Account, MFA, project membership, allocation balance.</td></tr>
+<tr><td class="mono">help@tacc.utexas.edu</td><td>Hardware faults, filesystem problems, anything system-wide. Include your username and the job id.</td></tr>
+<tr><td>MSF office hours</td><td>Everything else. Your setup, your code, your job script.</td></tr>
+</tbody>
+</table>
+</div>
+<p>MSF is not hosted at TACC. While our own facility is being built, TACC is our partner providing
+          the compute time, which is why every link on this page points at their systems.</p>
+</div>
+</section>
+</main>
+<footer>
+<span>Morehouse Supercomputing Facility · HPC onboarding reference</span>
+<span>Allocation TRA25001 · TACC Vista</span>
+</footer>
+</div>
+
+<script>
+  document.querySelectorAll('.code').forEach(function (block) {
+    var btn = block.querySelector('.copy');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var pre = block.querySelector('pre');
+      var text = Array.prototype.map.call(pre.childNodes, function (n) {
+        if (n.nodeType === 1 && n.classList.contains('pr')) return '';
+        return n.textContent;
+      }).join('');
+      navigator.clipboard.writeText(text.trim()).then(function () {
+        btn.textContent = 'Copied';
+        btn.classList.add('done');
+        setTimeout(function () {
+          btn.textContent = 'Copy';
+          btn.classList.remove('done');
+        }, 1600);
+      });
+    });
+  });
+
+  var links = {};
+  document.querySelectorAll('.rail a').forEach(function (a) {
+    links[a.getAttribute('href').slice(1)] = a;
+  });
+  var seen = new Set();
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) seen.add(e.target.id); else seen.delete(e.target.id);
+    });
+    var order = Object.keys(links);
+    var top = order.find(function (id) { return seen.has(id); });
+    order.forEach(function (id) { links[id].classList.toggle('is-active', id === top); });
+  }, { rootMargin: '-10% 0px -70% 0px', threshold: 0 });
+  document.querySelectorAll('main section').forEach(function (s) { obs.observe(s); });
+</script>
+</body>
+</html>
