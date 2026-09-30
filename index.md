@@ -77,15 +77,13 @@ MFA is required on every login, including SSH. Set it up first or your first con
 
 ![Manage Account, then Manage Multi-factor Authentication](assets/img/mfa-portal.png)
 
-On that page, pair an authenticator app. Which one you pick matters more than people expect.
+On that page, pair **Okta Verify**. It is the only app we use.
 
-| | App | Verdict |
-|---|---|---|
-| <img src="assets/img/okta-verify.png" width="48" alt="Okta Verify"> | **Okta Verify** | **Highly recommended.** Pairs cleanly and keeps working. This is the one to install. |
-| <img src="assets/img/duo-mobile.png" width="48" alt="Duo Mobile"> | **Duo Mobile** | **Works.** A fine second choice, and the one to use if your institution already requires it. |
-| <img src="assets/img/ms-authenticator.png" width="48" alt="Microsoft Authenticator"> | **Microsoft Authenticator** | **Avoid.** It has repeatedly failed to pair for participants, and the failure looks like an account problem, which makes it slow to diagnose. |
+<img src="assets/img/okta-verify.png" width="64" alt="Okta Verify">
 
-> **Please skip SMS and Microsoft Authenticator.** Text-message codes are not a supported option here. If you have already paired either one and logins are failing, unpair it on the MFA page and pair Okta Verify instead.
+Install **Okta Verify** from the App Store or Google Play, then scan the QR code on the MFA page.
+
+> **NEVER use SMS.** Do not pair text-message codes. If you already paired SMS or another app and logins are failing, unpair it on the MFA page and pair Okta Verify instead.
 
 Once you are paired, test it: log out of the portal and back in. Do that before you try the terminal, so that if something is wrong you find out in a browser rather than at a password prompt.
 
