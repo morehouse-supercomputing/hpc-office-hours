@@ -277,9 +277,9 @@ title(s, "Node vs. Core")
 gap = Inches(0.3)
 w = int((Inches(11.93) - gap * 2) / 3)
 for i, (name, what, num, unit) in enumerate([
-        ("CORE", "One worker inside a processor", "8", "cores in your laptop"),
-        ("NODE", "One whole computer, full of cores", "144", "cores in one Vista CPU node"),
-        ("SUPERCOMPUTER", "Many nodes wired together", "100s", "of nodes in Vista alone")]):
+        ("CORE", "One worker inside a processor", "1", "worker"),
+        ("NODE", "One whole computer, full of cores", "144", "cores per CPU node (72 per GPU node)"),
+        ("VISTA", "All the nodes wired together", "856", "nodes: 256 CPU + 600 GPU")]):
     x = Inches(0.7) + (w + gap) * i
     box(s, x, Inches(1.9), w, Inches(3.2), fill=MAROON if i == 1 else LIGHT)
     fg, sub = (WHITE, GOLD) if i == 1 else (MAROON, INK2)
@@ -290,8 +290,8 @@ for i, (name, what, num, unit) in enumerate([
     if i < 2:
         text(s, x + w, Inches(3.2), gap, Inches(0.6), "›", size=30, color=GOLD, font=HEAD, bold=True,
              align=PP_ALIGN.CENTER)
-highlight(s, Inches(5.45), "THINK OF IT AS",
-          "A core is one worker. A node is a building of workers. The supercomputer is the campus.")
+highlight(s, Inches(5.45), "VISTA IN TOTAL",
+          "856 nodes and 80,064 cores working together.")
 footer(s)
 
 # 7 · Nodes
