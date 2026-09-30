@@ -437,7 +437,7 @@ NOTES = [
     "HOME small, backed up.\nWORK = your projects.\nSCRATCH = temporary, 10 days.\nThese are the folders you'll see in Tapis.",
     "Queue: wait your turn.\nInteractive: next workshop.\nReservation: ticket.\nStory: waited hours, script failed instantly.",
     "Four rules. Read them out.\nThen: switch to Tapis.",
-    "CFPB complaints, ~10M.\nOct 14: three numbers for the Canvas.\nNov 4: the pain point.\nFall evidence = spring prototype.",
+    "CFPB = Consumer Financial Protection Bureau. Free public complaint database, ~10M complaints about money transfers, prepaid cards, digital payments. Too big for a laptop.\nReady-made notebook: change one cell (sector, state), rerun. No coding.\nOct 14: counts by product, company, state, year. Three numbers for the Monetization Canvas (due Oct 23).\nNov 4: read the complaint text at scale. Theme closest to your business problem. Feeds Nov 13 business model and Dec 4 pitch.\nOPIL: \"this many people said so.\" Fall pain points = spring prototype requirements.",
     "Connect. Guide link.\nQuestions.",
 ]
 for slide, note in zip(prs.slides, NOTES):
