@@ -425,5 +425,23 @@ text(s, Inches(0.7), Inches(6.45), Inches(11.9), Inches(0.4),
      size=16, color=BLACK)
 footer(s)
 
+NOTES = [
+    "Name, Deputy Director, MSF.\nRelaxed hour. No jobs, no code.",
+    "Three steps.\nOnly requirement: MFA + login.\nThen: switch to guide page for MFA.",
+    "Stragglers keep working on MFA.\nNational resource, shared.\nNodes = computers working together.",
+    "Same account, same login.\nVista tonight.",
+    "Too big, too slow, too many.\nCard 4: learning counts.",
+    "Shared machine = rules.",
+    "Core = one worker.\nNode = 144 cores (72 on GPU nodes).\nVista = 856 nodes, 80,064 cores.",
+    "Login node = lobby. Shared.\nCompute = labs.\nSets up rule 1.",
+    "HOME small, backed up.\nWORK = your projects.\nSCRATCH = temporary, 10 days.\nThese are the folders you'll see in Tapis.",
+    "Queue: wait your turn.\nInteractive: next workshop.\nReservation: ticket.\nStory: waited hours, script failed instantly.",
+    "Four rules. Read them out.\nThen: switch to Tapis.",
+    "CFPB complaints, ~10M.\nOct 14: three numbers for the Canvas.\nNov 4: the pain point.\nFall evidence = spring prototype.",
+    "Connect. Guide link.\nQuestions.",
+]
+for slide, note in zip(prs.slides, NOTES):
+    slide.notes_slide.notes_text_frame.text = note
+
 prs.save(OUT)
 print(OUT)
