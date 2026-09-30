@@ -865,7 +865,7 @@
 <li><a href="#ways"><span class="n">02</span><span>Two ways on</span></a></li>
 <li><a href="#app"><span class="n">03</span><span>Open your terminal</span></a></li>
 <li><a href="#login"><span class="n">04</span><span>What login looks like</span></a></li>
-<li><a href="#tapis"><span class="n">05</span><span>Morehouse Tapis</span></a></li>
+<li><a href="#tapis"><span class="n">05</span><span>Tapis in your browser</span></a></li>
 <li class="rail-part">Part 3 · Now that you are on</li>
 <li><a href="#nodes"><span class="n">06</span><span>Login vs compute</span></a></li>
 <li><a href="#files"><span class="n">07</span><span>Where files live</span></a></li>
@@ -970,9 +970,9 @@
 <article class="way">
 <p class="way-name">Morehouse Tapis</p>
 <p class="way-where">morehouse.tapis.io</p>
-<p>Our own tenant, with a GPU Jupyter app already built and pointed at Vista.</p>
-<p class="pick"><b>The benefit</b>The settings are made for you, and the same interface can be
-            driven from code later when you want to automate.</p>
+<p>The supercomputer in a web page. See your files, upload, and download, with nothing to install.</p>
+<p class="pick"><b>The benefit</b>No terminal and no Linux to learn first. You are looking at your
+            files on the supercomputer in a few clicks.</p>
 </article>
 </div>
 <div class="body">
@@ -990,29 +990,29 @@
 <tr>
 <td class="mono">You land on</td>
 <td><span class="tag warn">A login node</span> Ask for a compute node yourself.</td>
-<td><span class="tag ok">A compute node</span></td>
+<td><span class="tag ok">Your files</span></td>
 </tr>
 <tr>
 <td class="mono">You get</td>
 <td>A command prompt. All of it.</td>
-<td>Jupyter on a GPU node.</td>
+<td>Every file system, with upload and download.</td>
 </tr>
 <tr>
 <td class="mono">Set-up cost</td>
 <td>Highest. It is also the one that keeps paying.</td>
-<td>One-time key check, then lowest.</td>
+<td>Lowest.</td>
 </tr>
 <tr>
 <td class="mono">Best for</td>
 <td>Anything real, and everything you will read about later.</td>
-<td>Our GPU work, and automating later.</td>
+<td>Seeing, uploading, and downloading your files.</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="note">
 <p><b class="lbl">You do not have to pick one forever</b>
-            Most people end up using both: Tapis for browsing files and notebooks, and the terminal
+            Most people end up using both: Tapis for browsing and moving files, and the terminal
             for everything else. The files are the same either way: upload something through Tapis and it is right there in the terminal. Try whichever one gets you on the machine today. You can learn the other
             next time.</p>
 </div>
@@ -1256,75 +1256,38 @@ ssh_dispatch_run_fatal: Connection to 64:ff9b::8172:3ec9 port 22: message authen
 </div>
 </section>
 <section id="tapis">
-<h2><span class="n">05</span>Morehouse Tapis</h2>
-<p class="lede">We run our own Tapis tenant at <a href="https://morehouse.tapis.io">morehouse.tapis.io</a>.
-        It is two things at once: a web interface with our GPU Jupyter app already built, and an API underneath
-        for driving Vista from code.</p>
+<h2><span class="n">05</span>Morehouse Tapis: the supercomputer in your browser</h2>
+<p class="lede">You do not need a terminal to reach the supercomputer. <a href="https://morehouse.tapis.io">morehouse.tapis.io</a>
+        puts the whole system in a web page: your files, every file system, and every system on our allocation.
+        Same machine, same files, no install.</p>
 <div class="body">
-<h3>Launching Jupyter on a GPU node</h3>
-<p>In the Tapis UI, find the <code>jupyter-hpc-native</code> app and submit it with the JSON form.
-          The whole request is one line, because the app already knows the system, the queue, and the setup script.</p>
-<div class="code">
-<button class="copy" type="button">Copy</button>
-<pre>{ <span class="st">"name"</span>: <span class="st">"jupyter"</span>, <span class="st">"appId"</span>: <span class="st">"jupyter-hpc-native"</span>, <span class="st">"appVersion"</span>: <span class="st">"vista"</span> }</pre>
+<h3>Sign in</h3>
+<ol class="steps">
+<li>Go to <a href="https://morehouse.tapis.io">morehouse.tapis.io</a>.</li>
+<li>Sign in with the account you set up in <a href="#account">section 01</a>.</li>
+</ol>
+<h3>What you can do from the browser</h3>
+<div class="tw">
+<table>
+<thead><tr><th>Where</th><th>What you can do</th></tr></thead>
+<tbody>
+<tr><td class="mono">Systems</td><td>See Vista and the other systems on our allocation.</td></tr>
+<tr><td class="mono">Files</td><td>Move between <code>$HOME</code>, <code>$WORK</code>, and <code>$SCRATCH</code>, and see what is already there.</td></tr>
+<tr><td class="mono">Upload</td><td>Put a file from your laptop onto the supercomputer.</td></tr>
+<tr><td class="mono">Download</td><td>Pull a file from the supercomputer back to your laptop.</td></tr>
+</tbody>
+</table>
 </div>
-<p>Add <code>"maxMinutes": 60</code> to cap the session at an hour. The default is 120, and a shorter
-          session spends less of the allocation.</p>
-<div class="note stop">
-<p><b class="lbl">Do this once, before your first submission</b>
-            The app copies a setup script from a storage system called <code>cloud.data</code>. Without credentials
-            there, your job hangs on <code>STAGING_INPUTS</code> forever and never fails visibly.</p>
-<p>To check: open <b>Files</b> in the Tapis UI, select <b>cloud.data</b>, browse to
-            <code>/corral/tacc/aci/CEP/applications/v3/interactive-template/tap</code>, and confirm you can see
-            <code>tap-ilogin.sh</code>. If you get <code>SSH_POOL_MISSING_CREDENTIALS</code>, your TMS keys need
-            verifying first.</p>
-</div>
-<figure class="shot">
-<img alt="The Morehouse Tapis interface at morehouse.tapis.io. A left sidebar lists Dashboard, Systems, Files, Apps, Jobs, Workflows, Pods, ML Hub, AI Hub, Actors, Authenticator and Security. Files is selected, showing the available systems frontera, ls6, stampede-3, vista and cloud.data, with the contents of a vista work directory listed on the right." src="assets/img/tapis-ui.png"/>
-<figcaption><span class="k">Tapis</span><span>The systems column is where you switch to <b>cloud.data</b> for the check above. <b>Apps</b> and <b>Jobs</b> in the sidebar are where you submit and then watch the run.</span></figcaption>
-</figure>
-<h3>Then watch it move</h3>
-<div class="code">
-<button class="copy" type="button">Copy</button>
-<pre>STAGING_INPUTS  →  SUBMITTING_JOB  →  QUEUED  →  RUNNING</pre>
-</div>
-<p>Once the status reads <b>RUNNING</b>, give it another minute or two for the node to boot the Jupyter
-          server, then open the job's <code>tapisjob.out</code> file. Near the top is the line you need:</p>
-<div class="code">
-<pre><span class="cm">TACC: JUPYTER_URL is https://vista.tacc.utexas.edu:60707/?token=cb137c89...</span></pre>
-</div>
-<p>Copy that whole URL, token included, into your browser. That is JupyterLab on a Vista GPU node,
-          serving from your <code>$WORK</code> directory. Confirm the GPU with <code>!nvidia-smi</code> in a cell.</p>
 <div class="note">
-<p><b class="lbl">Two harmless things that look like errors</b>
-            Clicking into the output view before the job runs gives "path not found", because the output folder
-            does not exist yet. And the log's other URLs, the ones ending in <code>:8888</code> or
-            <code>127.0.0.1</code>, are the node's internal addresses; they will not work from your laptop. Only the
-            <code>JUPYTER_URL</code> line works.</p>
+<p><b class="lbl">Same files, two doors</b>
+            Upload a file through Tapis, then log in from the terminal and run <code>ls</code> in the same folder. It is
+            right there. Whatever you do in one door shows up in the other.</p>
 </div>
-<h3>The API underneath</h3>
-<p>The same tenant exposes REST services for Systems, Files, Apps, and Jobs. Reach for this once you find
-          yourself submitting the same job shape repeatedly from a script, a web app, or a notebook that is not on
-          the cluster.</p>
-<div class="code">
-<button class="copy" type="button">Copy</button>
-<pre><span class="pr">$ </span>pip install tapipy
-
-<span class="cm"># then, in Python</span>
-from tapipy.tapis import Tapis
-
-t = Tapis(base_url=<span class="st">"https://morehouse.tapis.io"</span>,
-          username=<span class="st">"yourusername"</span>,
-          password=os.environ[<span class="st">"TACC_PASSWORD"</span>])
-t.get_tokens()
-
-t.systems.getSystems()          <span class="cm"># what can I reach?</span>
-t.jobs.getJobList()             <span class="cm"># what have I run?</span></pre>
+<div class="note warn">
+<p><b class="lbl">Tonight: files only</b>
+            Tapis can also launch jobs and apps, but the interface was just upgraded. Tonight we only look at files.
+            Running work comes in a later session.</p>
 </div>
-<p>Never paste your password into a notebook you will commit. Read it from an environment variable or a
-          <code>.env</code> file that is in your <code>.gitignore</code>. Full reference at
-          <a href="https://tapis.readthedocs.io">tapis.readthedocs.io</a>, and bring the use case to office hours
-          first, because plenty of what people want Tapis for is simpler as a Slurm dependency chain.</p>
 </div>
 </section>
 <div class="part">
@@ -1342,8 +1305,7 @@ t.jobs.getJobList()             <span class="cm"># what have I run?</span></pre>
           The <b>compute nodes</b> are the actual supercomputer, hundreds of them, and you never touch one
           directly. You ask the scheduler, Slurm, for one.</p>
 <p>Which door you use decides where you start. The SSH login you just did puts you on a login node,
-          so you have to ask for a compute node yourself. <a href="#tapis">Tapis</a> puts you on a compute node from the outset, which is exactly why it is
-          the safe way to hand someone a notebook on day one.</p>
+          so you have to ask for a compute node yourself. Browsing files in <a href="#tapis">Tapis</a> does not run anything, so it is always safe.</p>
 <div class="tw">
 <table>
 <thead><tr><th>On a login node</th><th>On a compute node</th></tr></thead>
@@ -1354,7 +1316,7 @@ t.jobs.getJobList()             <span class="cm"># what have I run?</span></pre>
 </tr>
 <tr>
 <td class="mono">ls · cd · nano · idev · squeue</td>
-<td class="mono">an idev session · a Tapis session</td>
+<td class="mono">an idev session</td>
 </tr>
 </tbody>
 </table>
@@ -1510,21 +1472,14 @@ t.jobs.getJobList()             <span class="cm"># what have I run?</span></pre>
 <dt>My job got killed and TACC emailed me.</dt>
 <dd>You ran something heavy on a login node. Not a big deal the first time. Use <code>idev</code> or a batch
             script and it will not happen again.</dd>
-<dt>My Tapis job is stuck on STAGING_INPUTS.</dt>
-<dd>The TMS key check in <a href="#tapis">section 05</a> was skipped. Verify you can see
-            <code>tap-ilogin.sh</code> on <code>cloud.data</code>, then resubmit.</dd>
-<dt>Jupyter cannot see my data.</dt>
-<dd>You are in <code>$HOME</code>. Open a terminal in JupyterLab and <code>cd $WORK</code>.</dd>
-<dt>My notebook kernel keeps dying.</dt>
-<dd>Out of memory, usually from loading a whole dataset into a dataframe. Restart the session with more
-            resources, or read the data in chunks.</dd>
+<dt>I uploaded a file in Tapis and cannot find it in the terminal.</dt>
+<dd>Check you are in the same file system. Uploaded to <code>$WORK</code>? Run <code>cd $WORK</code> then <code>ls</code>.</dd>
 </dl>
 </div>
 </section>
 <section id="cheat">
 <h2><span class="n">10</span>Cheat sheet</h2>
-<p class="lede">The commands worth keeping open in a second window. Everything here works the same
-        in a terminal and in a Tapis session.</p>
+<p class="lede">The commands worth keeping open in a second window. Type these in the terminal.</p>
 <div class="cheat">
 <div class="card">
 <h4>Where am I, what have I got</h4>
@@ -1595,7 +1550,7 @@ t.jobs.getJobList()             <span class="cm"># what have I run?</span></pre>
 <thead><tr><th>Where</th><th>For</th></tr></thead>
 <tbody>
 <tr><td><a href="https://morehouse-supercomputing.github.io/mscf-getting-started/">MSF Getting Started</a></td><td>The full onboarding guide, with the OS tabs and troubleshooting page.</td></tr>
-<tr><td><a href="https://morehouse-supercomputing.github.io/jupyter-on-tapis/">Jupyter via Tapis</a></td><td>The long-form version of section 05.</td></tr>
+<tr><td><a href="https://morehouse.tapis.io">morehouse.tapis.io</a></td><td>The supercomputer in your browser: files, upload, download.</td></tr>
 <tr><td><a href="https://docs.tacc.utexas.edu/hpc/vista/">docs.tacc.utexas.edu/hpc/vista</a></td><td>The Vista user guide. Authoritative on hardware, queues, and limits.</td></tr>
 <tr><td><a href="https://portal.tacc.utexas.edu">portal.tacc.utexas.edu</a></td><td>Account, MFA, project membership, allocation balance.</td></tr>
 <tr><td class="mono">help@tacc.utexas.edu</td><td>Hardware faults, filesystem problems, anything system-wide. Include your username and the job id.</td></tr>
